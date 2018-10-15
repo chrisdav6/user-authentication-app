@@ -22,6 +22,20 @@ app.use(express.static(path.join(__dirname, "node_modules")));
 //Set EJS as viewengine
 app.set("view engine", "ejs");
 
+//Express Session
+app.use(session({
+  secret: "secret",
+  saveUninitialized: true,
+  resave: true
+}));
+
+//Express Messages
+app.use(flash());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
 //Routes
 app.use("/", index);
 app.use("/users", users);
