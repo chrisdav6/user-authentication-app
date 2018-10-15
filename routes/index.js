@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
-
+const User = require("../models/user");
 
 //GET Homepage
 router.get("/", (req, res) => {
   res.render("index");
+});
+
+//GET Login Form
+router.get("/login", (req, res) => {
+  res.render("login");
 });
 
 //GET Register Form
@@ -28,8 +33,20 @@ router.post("/register", (req, res) => {
   if(errors) {
     res.render("register", { errors : errors });
   } else {
-    console.log("Success");
-    res.sendStatus(200);
+    const newUser = new User({
+      name: name,
+      username: username,
+      email: email,
+      password: password
+    });
+
+    User.registerUser(newUser, (err, user) => {
+      if(err) {
+        console.log(err);
+      }
+      req.flash("success_messages", "You are registered and can login!");
+      res.redirect("/login");
+    });
   }
 });
 
