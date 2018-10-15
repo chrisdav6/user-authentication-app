@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const expressValidator = require('express-validator');
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
@@ -35,6 +36,24 @@ app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+
+//Express Validator
+app.use(expressValidator({
+  errorFormatter: (param, msg, value) => {
+    let namespace = param.split('.')
+      , root = namespace.shift()
+      , formParam = root;
+
+    while (namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
 
 //Routes
 app.use("/", index);
