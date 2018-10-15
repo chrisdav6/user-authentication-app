@@ -1,0 +1,67 @@
+<%- include partials/header.ejs %>
+
+<section id="nav">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Passport</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+      </div>
+  </nav>
+  </div>
+</section>
+
+<section id="register" class="py-5">
+  <div class="container">
+    <h1>Register</h1>
+    <hr class="mb-5">
+
+    <div class="row">
+      <div class="col">
+        <form action="/register" method="post">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control form-control-lg" name="name" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Username:</label>
+            <input type="text" class="form-control form-control-lg" name="username" id="username" required>
+          </div>
+          <div class="formgroup">
+            <label for="name">Email:</label>
+            <input type="email" class="form-control form-control-lg" name="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Password:</label>
+            <input type="password" class="form-control form-control-lg" name="password" id="password" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Confirm Password:</label>
+            <input type="password" class="form-control form-control-lg" name="password2" id="password2" required>
+          </div>
+          <div class="row mt-5 d-flex align-items-center">
+            <div class="col-md-6 d-flex order-md-1">
+              <button class="btn btn-lg btn-outline-success ml-auto flex-fill flex-md-grow-0">Register</button>
+            </div>
+            <div class="col-md-6 mt-3 mt-md-0">
+              <p class="mb-0 text-center text-md-left">Have an account? <a href="#">Login</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include partials/footer.ejs %>
