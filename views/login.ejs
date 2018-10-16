@@ -7,33 +7,21 @@
 
     <div class="row">
       <div class="col">
-        <form action="/register" method="post">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control form-control-lg" name="name" id="name">
-          </div>
+        <form action="/login" method="post">
           <div class="form-group">
             <label for="name">Username:</label>
             <input type="text" class="form-control form-control-lg" name="username" id="username">
-          </div>
-          <div class="formgroup">
-            <label for="name">Email:</label>
-            <input type="email" class="form-control form-control-lg" name="email" id="email">
           </div>
           <div class="form-group">
             <label for="name">Password:</label>
             <input type="password" class="form-control form-control-lg" name="password" id="password">
           </div>
-          <div class="form-group">
-            <label for="name">Confirm Password:</label>
-            <input type="password" class="form-control form-control-lg" name="password2" id="password2">
-          </div>
           <div class="row mt-5 d-flex align-items-center">
             <div class="col-md-6 d-flex order-md-1">
-              <button class="btn btn-lg btn-outline-success ml-auto flex-fill flex-md-grow-0">Register</button>
+              <button class="btn btn-lg btn-outline-success ml-auto flex-fill flex-md-grow-0">Login</button>
             </div>
             <div class="col-md-6 mt-3 mt-md-0">
-              <p class="mb-0 text-center text-md-left">Have an account? <a href="#">Login</a></p>
+              <p class="mb-0 text-center text-md-left">Need an account? <a href="/register">Register</a></p>
             </div>
           </div>
         </form>

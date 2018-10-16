@@ -1,4 +1,6 @@
 const express = require("express");
+const passport = require("passport");
+const localStrategy = require("passport-local").Strategy;
 const router = express.Router();
 const User = require("../models/user");
 
@@ -10,6 +12,64 @@ router.get("/", (req, res) => {
 //GET Login Form
 router.get("/login", (req, res) => {
   res.render("login");
+});
+
+//Login Local Strategy
+passport.use(new localStrategy((username, password, done) => {
+  User.getUserByUsername(username, (err, user) => {
+    if(err){
+      console.log(err);
+    }
+    if(!user) {
+      return done(null, false, { message: "No User Found" });
+    }
+
+    User.comparePassword(password, user.password, (err, isMatch) => {
+      if(err) {
+        console.log(err);
+      }
+      if(isMatch) {
+        return done(null, user);
+      }else {
+        return done(null, false, { message: "Wrong Password" });
+      }
+    });
+    
+  });
+}));
+
+//Serialize User
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+//DeSerialize User
+passport.deserializeUser((id, done) => {
+  User.getUserById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+//POST Handle Login Form
+router.post("/login", (req, res) => {
+  const { username,  password } = req.body;
+
+  req.checkBody("username", "Username field is required").notEmpty();
+  req.checkBody("password", "Password field is required").notEmpty();
+
+  let errors = req.validationErrors();
+
+  if (errors) {
+    res.render("login", { errors: errors });
+  } else {
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+      failureFlash: true
+    }, (req, res) => {
+      res.redirect("/");
+    });
+  }
 });
 
 //GET Register Form

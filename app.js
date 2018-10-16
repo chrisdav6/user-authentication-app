@@ -30,6 +30,10 @@ app.use(session({
   resave: true
 }));
 
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Express Messages
 app.use(flash());
 app.use(function (req, res, next) {
