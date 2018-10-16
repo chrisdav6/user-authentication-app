@@ -4,13 +4,23 @@ const localStrategy = require("passport-local").Strategy;
 const router = express.Router();
 const User = require("../models/user");
 
+//Access Control 
+const ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    req.flash("error_messages", "You must be logged in");
+    res.redirect("/login");
+  }
+}
+
 //GET Homepage
-router.get("/", (req, res) => {
+router.get("/", ensureAuthenticated, (req, res, next) => {
   res.render("index");
 });
 
 //GET Login Form
-router.get("/login", (req, res) => {
+router.get("/login", (req, res, next) => {
   res.render("login");
 });
 
@@ -71,12 +81,12 @@ router.post("/login", (req, res, next) => {
 });
 
 //GET Register Form
-router.get("/register", (req, res) => {
+router.get("/register", (req, res, next) => {
   res.render("register");
 });
 
 //POST Handle Register Form
-router.post("/register", (req, res) => {
+router.post("/register", (req, res, next) => {
   const { name, username, email, password, password2 } = req.body;
   
   req.checkBody("name", "Name field is required").notEmpty();
@@ -109,7 +119,7 @@ router.post("/register", (req, res) => {
 });
 
 //GET Logout
-router.get("/logout", (req, res) => {
+router.get("/logout", (req, res, next) => {
   req.logout();
   req.flash("success_messages", "You have logged out");
   res.redirect("/login");
