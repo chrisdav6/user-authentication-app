@@ -6,9 +6,9 @@ const User = require("../models/user");
 
 //Access Control 
 const ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if(req.isAuthenticated()) {
     return next();
-  } else {
+  }else {
     req.flash("error_messages", "You must be logged in");
     res.redirect("/login");
   }
