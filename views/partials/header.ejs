@@ -51,6 +51,12 @@
       </div>
     <% } %>
 
+    <% if (typeof error !== 'undefined' && error.length !== 0) { %>
+    <div class="alert alert-danger mb-0">
+      <%= error %>
+    </div>
+    <% } %>
+
     <% if (typeof errors !== 'undefined') { %>
       <% errors.forEach((error) => { %>
       <div class="alert alert-danger mb-0">

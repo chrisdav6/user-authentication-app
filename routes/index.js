@@ -51,7 +51,7 @@ passport.deserializeUser((id, done) => {
 });
 
 //POST Handle Login Form
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   const { username,  password } = req.body;
 
   req.checkBody("username", "Username field is required").notEmpty();
@@ -66,9 +66,7 @@ router.post("/login", (req, res) => {
       successRedirect: "/",
       failureRedirect: "/login",
       failureFlash: true
-    }, (req, res) => {
-      res.redirect("/");
-    });
+    })(req, res, next);
   }
 });
 
